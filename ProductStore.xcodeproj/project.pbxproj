@@ -14,6 +14,12 @@
 		42D7317B27A83E11002FDF95 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 42D7317927A83E11002FDF95 /* LaunchScreen.storyboard */; };
 		42D7319627AAA81A002FDF95 /* ScreenProductDetails.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42D7319527AAA81A002FDF95 /* ScreenProductDetails.swift */; };
 		42D7319827AAA884002FDF95 /* Protocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42D7319727AAA884002FDF95 /* Protocol.swift */; };
+		8A1BC2C827AC725A00542FA3 /* SizeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A1BC2C727AC725A00542FA3 /* SizeView.swift */; };
+		8A1BC2CA27AC72B400542FA3 /* SizesView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A1BC2C927AC72B400542FA3 /* SizesView.swift */; };
+		8AAFDAD827AFFDC800D50A28 /* ColorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8AAFDAD727AFFDC800D50A28 /* ColorView.swift */; };
+		8AAFDADA27B0129700D50A28 /* ColorsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8AAFDAD927B0129700D50A28 /* ColorsView.swift */; };
+		8ACAAAC427B05E3D0017CDF0 /* ImagesCollectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8ACAAAC327B05E3D0017CDF0 /* ImagesCollectionView.swift */; };
+		8ACAAAC627B077A00017CDF0 /* CustomCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8ACAAAC527B077A00017CDF0 /* CustomCollectionViewCell.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -26,6 +32,12 @@
 		42D7317C27A83E11002FDF95 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		42D7319527AAA81A002FDF95 /* ScreenProductDetails.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScreenProductDetails.swift; sourceTree = "<group>"; };
 		42D7319727AAA884002FDF95 /* Protocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Protocol.swift; sourceTree = "<group>"; };
+		8A1BC2C727AC725A00542FA3 /* SizeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SizeView.swift; sourceTree = "<group>"; };
+		8A1BC2C927AC72B400542FA3 /* SizesView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SizesView.swift; sourceTree = "<group>"; };
+		8AAFDAD727AFFDC800D50A28 /* ColorView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ColorView.swift; sourceTree = "<group>"; };
+		8AAFDAD927B0129700D50A28 /* ColorsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ColorsView.swift; sourceTree = "<group>"; };
+		8ACAAAC327B05E3D0017CDF0 /* ImagesCollectionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImagesCollectionView.swift; sourceTree = "<group>"; };
+		8ACAAAC527B077A00017CDF0 /* CustomCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomCollectionViewCell.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -106,6 +118,12 @@
 			children = (
 				42D7319527AAA81A002FDF95 /* ScreenProductDetails.swift */,
 				42D7319727AAA884002FDF95 /* Protocol.swift */,
+				8A1BC2C727AC725A00542FA3 /* SizeView.swift */,
+				8A1BC2C927AC72B400542FA3 /* SizesView.swift */,
+				8AAFDAD727AFFDC800D50A28 /* ColorView.swift */,
+				8AAFDAD927B0129700D50A28 /* ColorsView.swift */,
+				8ACAAAC327B05E3D0017CDF0 /* ImagesCollectionView.swift */,
+				8ACAAAC527B077A00017CDF0 /* CustomCollectionViewCell.swift */,
 			);
 			path = ProductsDetails;
 			sourceTree = "<group>";
@@ -180,11 +198,17 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				8AAFDADA27B0129700D50A28 /* ColorsView.swift in Sources */,
 				42D7319627AAA81A002FDF95 /* ScreenProductDetails.swift in Sources */,
+				8ACAAAC427B05E3D0017CDF0 /* ImagesCollectionView.swift in Sources */,
 				42D7317327A83E0A002FDF95 /* ViewController.swift in Sources */,
+				8A1BC2CA27AC72B400542FA3 /* SizesView.swift in Sources */,
 				42D7316F27A83E0A002FDF95 /* AppDelegate.swift in Sources */,
+				8AAFDAD827AFFDC800D50A28 /* ColorView.swift in Sources */,
+				8A1BC2C827AC725A00542FA3 /* SizeView.swift in Sources */,
 				42D7317127A83E0A002FDF95 /* SceneDelegate.swift in Sources */,
 				42D7319827AAA884002FDF95 /* Protocol.swift in Sources */,
+				8ACAAAC627B077A00017CDF0 /* CustomCollectionViewCell.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

@@ -10,13 +10,17 @@ import UIKit
 class ViewController: UIViewController {
     
     var screenProductDetails = ScreenProductDetails()
-
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
         view = screenProductDetails
+        
     }
-
-
+    
+    override func viewDidLayoutSubviews() {
+        super.viewDidLayoutSubviews()
+        
+    }
+    
 }
-

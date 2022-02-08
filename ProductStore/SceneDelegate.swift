@@ -20,41 +20,76 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         
         let safeWindow = UIWindow(windowScene: windowScene)
         safeWindow.frame = UIScreen.main.bounds
-        safeWindow.rootViewController = ViewController()
+        safeWindow.rootViewController = buidTabBarController()
         safeWindow.makeKeyAndVisible()
         
         window = safeWindow
         
     }
-
-    func sceneDidDisconnect(_ scene: UIScene) {
-        // Called as the scene is being released by the system.
-        // This occurs shortly after the scene enters the background, or when its session is discarded.
-        // Release any resources associated with this scene that can be re-created the next time the scene connects.
-        // The scene may re-connect later, as its session was not necessarily discarded (see `application:didDiscardSceneSessions` instead).
+    
+    func buidTabBarController() -> UITabBarController {
+        let tabBarVc = UITabBarController()
+        
+        let vc1 = UINavigationController(rootViewController: ViewController())
+        let vc2 = SecondViewController()
+        let vc3 = ThirdViewController()
+        let vc4 = FourthViewController()
+        
+        
+        vc1.title = "Início"
+        vc2.title = "Busca"
+        vc3.title = "Pedidos"
+        vc4.title = "Mais"
+        
+        
+        tabBarVc.setViewControllers([vc1, vc2, vc3, vc4], animated: false)
+        
+        let images = ["house", "magnifyingglass", "list.bullet.rectangle.portrait", "list.dash"]
+        
+        tabBarVc.tabBar.items?.enumerated().forEach({ x, n  in   //
+            n.image = UIImage(systemName: images[x])
+        })
+        
+        return tabBarVc
     }
+        
+}
+    
+    
 
-    func sceneDidBecomeActive(_ scene: UIScene) {
-        // Called when the scene has moved from an inactive state to an active state.
-        // Use this method to restart any tasks that were paused (or not yet started) when the scene was inactive.
+//controladores de exibiçao para o controlador de barras de guia :
+
+
+class FirstViewController: UIViewController {
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        view.backgroundColor = .red
+        title = "Início"
     }
+}
 
-    func sceneWillResignActive(_ scene: UIScene) {
-        // Called when the scene will move from an active state to an inactive state.
-        // This may occur due to temporary interruptions (ex. an incoming phone call).
-    }
+class SecondViewController: UIViewController {
+override func viewDidLoad() {
+    super.viewDidLoad()
+    view.backgroundColor = .lightGray
+    title = "Busca"
+}
+}
 
-    func sceneWillEnterForeground(_ scene: UIScene) {
-        // Called as the scene transitions from the background to the foreground.
-        // Use this method to undo the changes made on entering the background.
-    }
+class ThirdViewController: UIViewController {
+override func viewDidLoad() {
+    super.viewDidLoad()
+    view.backgroundColor = .purple
+    title = "Pedidos"
+}
+}
 
-    func sceneDidEnterBackground(_ scene: UIScene) {
-        // Called as the scene transitions from the foreground to the background.
-        // Use this method to save data, release shared resources, and store enough scene-specific state information
-        // to restore the scene back to its current state.
-    }
-
+class FourthViewController: UIViewController {
+override func viewDidLoad() {
+    super.viewDidLoad()
+    view.backgroundColor = .green
+    title = "Mais"
+}
 
 }
 
