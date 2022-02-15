@@ -7,6 +7,15 @@
 
 import UIKit
 
+class CustomGestureRecognizer: UITapGestureRecognizer {
+    let color: UIColor
+    
+    init(color: UIColor, target: Any?, action: Selector?) {
+        self.color = color
+        super.init(target: target, action: action)
+    }
+}
+
 class ColorsView: UIView {
     
     //MARK: UI
@@ -14,12 +23,20 @@ class ColorsView: UIView {
     lazy var ColorsView: [ColorView] = {
         let views: [ColorView] = colors.map { color in
             let colorsView = ColorView(color: color)
+            colorsView.addGestureRecognizer(CustomGestureRecognizer(color: color, target: self, action: #selector(tap(sender:))))
             return colorsView
         }
         return views
     }()
     
+    @objc private func tap(sender: UITapGestureRecognizer) {
+        guard let sender = sender as? CustomGestureRecognizer else { return }
+        onColorSelect?(sender.color)
+    }
+    
     //MARK: Properties
+    
+    var onColorSelect: ((UIColor) -> Void)?
     
     let colors: [UIColor]
     

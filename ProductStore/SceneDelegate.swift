@@ -30,7 +30,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
     func buidTabBarController() -> UITabBarController {
         let tabBarVc = UITabBarController()
         
-        let vc1 = UINavigationController(rootViewController: ViewController())
+        let vc1 = UINavigationController(rootViewController: ViewController(productId: "asd"))
         let vc2 = SecondViewController()
         let vc3 = ThirdViewController()
         let vc4 = FourthViewController()
