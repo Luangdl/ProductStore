@@ -9,6 +9,12 @@ import UIKit
 
 class ViewController: UIViewController {
     
+     private var tappableView: UIView! {
+        didSet{
+            tappableView.backgroundColor = .red
+        }
+    }
+    
     var screenProductDetails = ScreenProductDetails()
     
     override func viewDidLoad() {
@@ -16,11 +22,9 @@ class ViewController: UIViewController {
         
         view = screenProductDetails
         
-    }
+
     
-    override func viewDidLayoutSubviews() {
-        super.viewDidLayoutSubviews()
-        
-    }
-    
+}
+
+
 }
