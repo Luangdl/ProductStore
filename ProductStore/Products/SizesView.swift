@@ -7,6 +7,17 @@
 
 import UIKit
 
+class CustomSizeGestureRecognizer: UITapGestureRecognizer {
+    let size1: String
+    
+    
+    init(size1: String, target: Any?, action: Selector?) {
+        self.size1 = size1
+        super.init(target: target, action: action)
+    }
+}
+
+
 class SizesView: UIView {
     
     // MARK: UI
@@ -14,11 +25,21 @@ class SizesView: UIView {
     lazy var sizeViews: [SizeView] = {
         let views: [SizeView] = sizes.map { size in
             let view = SizeView(size: size)
+            view.addGestureRecognizer(CustomSizeGestureRecognizer(size1: size, target: self, action: #selector(tap(sender:))))
             return view
         }
         return views
     }()
+    
+    @objc private func tap(sender: UITapGestureRecognizer) {
+        guard let sender = sender as? CustomSizeGestureRecognizer else { return }
+        onSizeSelect?(sender.size1)
+       
+        
+    }
     // MARK: Properties
+    
+    var onSizeSelect: ((String) -> Void)?
     
     let sizes: [String]
     

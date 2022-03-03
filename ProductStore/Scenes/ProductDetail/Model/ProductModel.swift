@@ -6,6 +6,7 @@
 //
 
 import Foundation
+import UIKit
 
 struct ProductEntity {
     let name: String

@@ -7,6 +7,7 @@
 
 import UIKit
 
+
 class ColorView: UIView {
     
     // MARK: Properties

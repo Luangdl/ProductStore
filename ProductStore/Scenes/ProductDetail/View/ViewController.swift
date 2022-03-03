@@ -20,13 +20,13 @@ class ViewController: UIViewController {
     
     let productId: String
     
-    var viewModel: ProductDetailViewModelProtocol? = ProductDetailViewModel()
+    var viewModel: ProductDetailViewModelProtocol = ProductDetailViewModel()
     
     //MARK: UI
     
     lazy var imageView: UIImageView = {
         let imageView = UIImageView()
-//        imageView.image = UIImage(named: "camiseta")
+        imageView.image = UIImage(named: "camiseta")
         imageView.translatesAutoresizingMaskIntoConstraints = false
 
         return imageView
@@ -74,10 +74,10 @@ class ViewController: UIViewController {
     lazy var buttonCollor: ColorsView = {
         let button = ColorsView(colors: color)
         button.onColorSelect = { color in
-            
+            self.viewModel.changeColorTo(color)
         }
         button.isUserInteractionEnabled = true
-//        button.addGestureRecognizer(((UITapGestureRecognizer(target: self, action: #selector(didTapView)))))
+        button.addGestureRecognizer(((UITapGestureRecognizer(target: self, action: #selector(didTapView)))))
         button.translatesAutoresizingMaskIntoConstraints = false
         return button
     }()
@@ -93,6 +93,9 @@ class ViewController: UIViewController {
     
     lazy var button1Size: SizesView = {
         let button1 = SizesView(sizes: sizes1)
+        button1.onSizeSelect = { size in
+            self.viewModel.changeSize1To(size)
+        }
         button1.isUserInteractionEnabled = true
         button1.addGestureRecognizer(((UITapGestureRecognizer(target: self, action: #selector(didTapView)))))
         button1.translatesAutoresizingMaskIntoConstraints = false
@@ -101,6 +104,9 @@ class ViewController: UIViewController {
     
     lazy var button2Size: SizesView = {
         let button2 = SizesView(sizes: sizes2)
+        button2.onSizeSelect = { size in
+            self.viewModel.changeSize1To(size)
+        }
         button2.isUserInteractionEnabled = true
         button2.addGestureRecognizer(((UITapGestureRecognizer(target: self, action: #selector(didTapView)))))
         button2.translatesAutoresizingMaskIntoConstraints = false
@@ -108,25 +114,25 @@ class ViewController: UIViewController {
     }()
     
     lazy var productDetails: UILabel = {
-        let view = UILabel(frame: .zero)
-        view.isUserInteractionEnabled = true
-        view.textColor = .white
-        view.text = ("Detalhes do produto")
-        view.translatesAutoresizingMaskIntoConstraints = false
+        let label = UILabel(frame: .zero)
+        label.isUserInteractionEnabled = true
+        label.textColor = .white
+        label.text = ("Detalhes do produto")
+        label.translatesAutoresizingMaskIntoConstraints = false
         
-        return view
+        return label
     }()
     
     lazy var buttonBuyNow: UIButton = {
-        let view = UIButton(frame: .zero)
-        view.isUserInteractionEnabled = true
-        view.addGestureRecognizer(((UITapGestureRecognizer(target: self, action: #selector(didTapView)))))
-        view.backgroundColor = .systemGreen
-        view.layer.cornerRadius = 20
-        view.setTitle("Comprar agora", for: .normal)
-        view.translatesAutoresizingMaskIntoConstraints = false
+        let button = UIButton(frame: .zero)
+        button.isUserInteractionEnabled = true
+        button.addGestureRecognizer(((UITapGestureRecognizer(target: self, action: #selector(didTapView)))))
+        button.backgroundColor = .systemGreen
+        button.layer.cornerRadius = 20
+        button.setTitle("Comprar agora", for: .normal)
+        button.translatesAutoresizingMaskIntoConstraints = false
         
-        return view
+        return button
     }()
     
     init(productId: String) {
@@ -145,12 +151,12 @@ class ViewController: UIViewController {
     }
     
     private func setupViewModel() {
-        viewModel?.onProductFetched = {
-            guard let product = self.viewModel?.product else { return }
+        viewModel.onProductFetched = {
+            guard let product = self.viewModel.product else { return }
             self.updateUI(with: product)
         }
         
-        viewModel?.onProductFetchError = {
+        viewModel.onProductFetchError = {
             
         }
     }
@@ -163,7 +169,7 @@ class ViewController: UIViewController {
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        viewModel?.fetchProductDetails(id: productId)
+        viewModel.fetchProductDetails(id: productId)
     }
     
     // MARK: - Actions
@@ -196,47 +202,41 @@ extension ViewController: ViewCode{
             imageView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
             imageView.leftAnchor.constraint(equalTo: view.leftAnchor),
             imageView.rightAnchor.constraint(equalTo: view.rightAnchor),
-            imageView.heightAnchor.constraint(equalToConstant: 300),
-      //      imageView.bottomAnchor.constraint(equalTo: productValue.topAnchor, constant: 32),
+            imageView.heightAnchor.constraint(equalToConstant: 240),
+            imageView.bottomAnchor.constraint(equalTo: productValue.topAnchor, constant: -33),
             
-        //    buttonBag.topAnchor.constraint(equalTo: topAnchor, constant: 35),
-        //    buttonBag.leftAnchor.constraint(equalTo: leftAnchor, constant: 343),
-        //    buttonBag.heightAnchor.constraint(equalToConstant: 40),
-         //   buttonBag.widthAnchor.constraint(equalToConstant: 40),
-            
-            productValue.leftAnchor.constraint(equalTo: view.leftAnchor, constant: 291),
+            productValue.centerXAnchor.constraint(equalTo: view.centerXAnchor),
+            productValue.leftAnchor.constraint(equalTo: view.leftAnchor, constant: 319),
+            productValue.rightAnchor.constraint(equalTo: view.rightAnchor, constant: -10),
             productValue.bottomAnchor.constraint(equalTo: colorName.topAnchor, constant: -40),
             
-            productName.leftAnchor.constraint(equalTo: view.leftAnchor, constant: 20),
-            productName.bottomAnchor.constraint(equalTo: colorName.topAnchor, constant: -40),
-            
-            installmentValue.leftAnchor.constraint(equalTo: view.leftAnchor, constant: 298),
             installmentValue.topAnchor.constraint(equalTo: productValue.bottomAnchor, constant: 4),
-            installmentValue.centerXAnchor.constraint(equalTo: productValue.centerXAnchor, constant: 4),
+            installmentValue.centerXAnchor.constraint(equalTo: productValue.centerXAnchor),
             
+            productName.topAnchor.constraint(equalTo: imageView.bottomAnchor, constant: 33),
+            productName.leftAnchor.constraint(equalTo: view.leftAnchor, constant: 20),
+            
+            colorName.topAnchor.constraint(equalTo: productName.bottomAnchor, constant: 40),
             colorName.centerXAnchor.constraint(equalTo: view.centerXAnchor),
-            colorName.bottomAnchor.constraint(equalTo: buttonCollor.topAnchor, constant: -24),
             
+            buttonCollor.topAnchor.constraint(equalTo: colorName.bottomAnchor, constant: 24),
             buttonCollor.centerXAnchor.constraint(equalTo: view.centerXAnchor),
-            buttonCollor.bottomAnchor.constraint(equalTo: buttonSelectSize.topAnchor, constant: -32),
-            buttonCollor.leftAnchor.constraint(equalTo: view.leftAnchor, constant: 100),
             
+            buttonSelectSize.topAnchor.constraint(equalTo: buttonCollor.bottomAnchor, constant: 32),
             buttonSelectSize.centerXAnchor.constraint(equalTo: view.centerXAnchor),
-            buttonSelectSize.bottomAnchor.constraint(equalTo: button1Size.topAnchor, constant: -24),
             
+            button1Size.topAnchor.constraint(equalTo: buttonSelectSize.bottomAnchor, constant: 28),
             button1Size.centerXAnchor.constraint(equalTo: view.centerXAnchor),
             
-            button2Size.centerXAnchor.constraint(equalTo: button1Size.centerXAnchor),
-            button2Size.topAnchor.constraint(equalTo: button1Size.bottomAnchor),
+            button2Size.centerXAnchor.constraint(equalTo: view.centerXAnchor),
+            button2Size.topAnchor.constraint(equalTo: button1Size.bottomAnchor, constant: 10),
             
-            productDetails.topAnchor.constraint(equalTo: button2Size.bottomAnchor, constant: 47),
-            productDetails.bottomAnchor.constraint(equalTo: buttonBuyNow.topAnchor, constant: -47),
-            productDetails.leftAnchor.constraint(equalTo: view.leftAnchor, constant: 20),
+            productDetails.topAnchor.constraint(equalTo: button2Size.bottomAnchor, constant: 37),
+            productDetails.leftAnchor.constraint(equalTo: view.leftAnchor, constant: 10),
             
-            buttonBuyNow.topAnchor.constraint(equalTo: productDetails.bottomAnchor, constant: 47),
+            buttonBuyNow.topAnchor.constraint(equalTo: productDetails.bottomAnchor, constant: 17),
             buttonBuyNow.leftAnchor.constraint(equalTo: view.leftAnchor, constant: 67),
             buttonBuyNow.rightAnchor.constraint(equalTo: view.rightAnchor, constant: -67),
-            buttonBuyNow.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: -123),
             buttonBuyNow.heightAnchor.constraint(equalToConstant: 45),
         ])
     }
