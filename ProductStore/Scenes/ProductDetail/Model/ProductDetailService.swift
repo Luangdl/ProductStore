@@ -14,7 +14,7 @@ protocol ProductDetailServiceProtocol {
 class ProductDetailService: ProductDetailServiceProtocol {
     func fetchProductDetails(id: String, completion: (Result<ProductEntity, Error>) -> Void) {
         completion(.success(
-            ProductEntity(name: "T-shirt hub", price: 90.00, colors: ["a"], sizes: ["PP","P","M","G","GG","XG"], detail: "detail", images: "asd")
+            ProductEntity(name: "T-shirt hub", price: 90.05, colors: ["a"], sizes: ["PP","P","M","G","GG","XG"], detail: "detail", images: "asd")
         ))
     }
 }

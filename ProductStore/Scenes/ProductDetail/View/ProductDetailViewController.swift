@@ -7,7 +7,8 @@
 
 import UIKit
 
-class ViewController: UIViewController {
+
+class ProductDetailViewController: UIViewController, UIScrollViewDelegate {
     
     // MARK: Properties
     
@@ -24,9 +25,29 @@ class ViewController: UIViewController {
     
     //MARK: UI
     
+    lazy var scrollView: UIScrollView = {
+        let scrollView = UIScrollView()
+        scrollView.isScrollEnabled = true
+        scrollView.delegate = self
+        scrollView.translatesAutoresizingMaskIntoConstraints = false
+        scrollView.showsVerticalScrollIndicator = false
+        scrollView.showsHorizontalScrollIndicator = false
+        scrollView.isDirectionalLockEnabled = true
+        
+        return scrollView
+    }()
+    
+    lazy var containerView: UIView = {
+        let view = UIView()
+        view.translatesAutoresizingMaskIntoConstraints = false
+        return view
+    }()
+    
     lazy var imageView: UIImageView = {
         let imageView = UIImageView()
         imageView.image = UIImage(named: "camiseta")
+        imageView.contentMode = .scaleToFill
+        imageView.clipsToBounds = true
         imageView.translatesAutoresizingMaskIntoConstraints = false
 
         return imageView
@@ -113,6 +134,13 @@ class ViewController: UIViewController {
         return button2
     }()
     
+    private lazy var sizeButtonVStack: UIStackView = {
+        let stack = UIStackView(arrangedSubviews: [button1Size, button2Size])
+        stack.translatesAutoresizingMaskIntoConstraints = false
+        stack.axis = .vertical
+        return stack
+    }()
+    
     lazy var productDetails: UILabel = {
         let label = UILabel(frame: .zero)
         label.isUserInteractionEnabled = true
@@ -128,12 +156,14 @@ class ViewController: UIViewController {
         button.isUserInteractionEnabled = true
         button.addGestureRecognizer(((UITapGestureRecognizer(target: self, action: #selector(didTapView)))))
         button.backgroundColor = .systemGreen
-        button.layer.cornerRadius = 20
+        button.layer.cornerRadius = 25
         button.setTitle("Comprar agora", for: .normal)
         button.translatesAutoresizingMaskIntoConstraints = false
         
         return button
     }()
+    
+    //MARK: Init
     
     init(productId: String) {
         self.productId = productId
@@ -148,6 +178,10 @@ class ViewController: UIViewController {
         super.viewDidLoad()
         setupView()
         setupViewModel()
+    }
+    
+    override func viewDidAppear(_ animated: Bool) {
+       scrollView.contentSize = CGSize(width: UIScreen.main.bounds.width, height: UIScreen.main.bounds.height+49)
     }
     
     private func setupViewModel() {
@@ -177,71 +211,98 @@ class ViewController: UIViewController {
     @objc func didTapView() {
         print("did tap view")
     }
+
+    
 }
 
 //MARK
 
-extension ViewController: ViewCode{
+extension ProductDetailViewController: ViewCode{
     
     func buildViewHierarchy() {
-        view.addSubview(imageView)
-        view.addSubview(installmentValue)
-        view.addSubview(productValue)
-        view.addSubview(productName)
-        view.addSubview(colorName)
-        view.addSubview(buttonCollor)
-        view.addSubview(buttonSelectSize)
-        view.addSubview(button1Size)
-        view.addSubview(button2Size)
-        view.addSubview(productDetails)
-        view.addSubview(buttonBuyNow)
+
+
+        view.addSubview(scrollView)
+        scrollView.addSubview(containerView)
+        containerView.addSubview(imageView)
+        containerView.addSubview(productName)
+        containerView.addSubview(productValue)
+        containerView.addSubview(colorName)
+//        containerView.addSubview(installmentValue)
+        containerView.addSubview(buttonCollor)
+        containerView.addSubview(buttonSelectSize)
+        containerView.addSubview(sizeButtonVStack)
+        containerView.addSubview(productDetails)
+        containerView.addSubview(buttonBuyNow)
+        
     }
     
     func setupConstraints() {
+        
+        scrollView.anchor(top: view.safeAreaLayoutGuide.topAnchor, left: view.leftAnchor, bottom: view.bottomAnchor, right: view.rightAnchor, bottomConstant: -49)
+        
+        containerView.anchor(top: scrollView.topAnchor, left: view.leftAnchor, bottom: scrollView.bottomAnchor, right: view.rightAnchor)
+        
+        imageView.anchor(top: containerView.topAnchor, left: containerView.leftAnchor, right: containerView.rightAnchor, heightConstant: 300)
+    
+        productName.anchor(top: imageView.bottomAnchor, left: containerView.leftAnchor, topConstant: 33, leftConstant: 16)
+        
+        productValue.anchor(top: imageView.bottomAnchor, right: containerView.rightAnchor, topConstant: 33, rightConstant: 16)
+        
         NSLayoutConstraint.activate([
-            imageView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
-            imageView.leftAnchor.constraint(equalTo: view.leftAnchor),
-            imageView.rightAnchor.constraint(equalTo: view.rightAnchor),
-            imageView.heightAnchor.constraint(equalToConstant: 240),
-            imageView.bottomAnchor.constraint(equalTo: productValue.topAnchor, constant: -33),
+           
+       //     scrollView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
+       //     scrollView.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: -49),
+        //    scrollView.leftAnchor.constraint(equalTo: view.leftAnchor),
+        //    scrollView.rightAnchor.constraint(equalTo: view.rightAnchor),
             
-            productValue.centerXAnchor.constraint(equalTo: view.centerXAnchor),
-            productValue.leftAnchor.constraint(equalTo: view.leftAnchor, constant: 319),
-            productValue.rightAnchor.constraint(equalTo: view.rightAnchor, constant: -10),
-            productValue.bottomAnchor.constraint(equalTo: colorName.topAnchor, constant: -40),
+      //      containerView.topAnchor.constraint(equalTo: scrollView.topAnchor),
+     //       containerView.leftAnchor.constraint(equalTo: scrollView.leftAnchor),
+     //       containerView.rightAnchor.constraint(equalTo: scrollView.rightAnchor),
+     //       containerView.bottomAnchor.constraint(equalTo: scrollView.bottomAnchor),
+    //        containerView.widthAnchor.constraint(equalTo: scrollView.widthAnchor),
+          
+   //         imageView.topAnchor.constraint(equalTo: containerView.topAnchor),
+   //         imageView.leftAnchor.constraint(equalTo: containerView.leftAnchor),
+    //        imageView.rightAnchor.constraint(equalTo: containerView.rightAnchor),
+    //        imageView.heightAnchor.constraint(equalToConstant: 300),
             
-            installmentValue.topAnchor.constraint(equalTo: productValue.bottomAnchor, constant: 4),
-            installmentValue.centerXAnchor.constraint(equalTo: productValue.centerXAnchor),
+   //         productName.topAnchor.constraint(equalTo: imageView.bottomAnchor, constant: 33),
+  //          productName.leftAnchor.constraint(equalTo: containerView.leftAnchor, constant: 16),
             
-            productName.topAnchor.constraint(equalTo: imageView.bottomAnchor, constant: 33),
-            productName.leftAnchor.constraint(equalTo: view.leftAnchor, constant: 20),
+ //           productValue.topAnchor.constraint(equalTo: imageView.bottomAnchor, constant: 33),
+  //          productValue.rightAnchor.constraint(equalTo: containerView.rightAnchor, constant: -16),
             
-            colorName.topAnchor.constraint(equalTo: productName.bottomAnchor, constant: 40),
-            colorName.centerXAnchor.constraint(equalTo: view.centerXAnchor),
+            colorName.topAnchor.constraint(equalTo: productName.bottomAnchor, constant: 16),
+            colorName.centerXAnchor.constraint(equalTo: scrollView.centerXAnchor),
             
-            buttonCollor.topAnchor.constraint(equalTo: colorName.bottomAnchor, constant: 24),
-            buttonCollor.centerXAnchor.constraint(equalTo: view.centerXAnchor),
+            buttonCollor.topAnchor.constraint(equalTo: colorName.bottomAnchor, constant: 16),
+            buttonCollor.centerXAnchor.constraint(equalTo: scrollView.centerXAnchor),
             
-            buttonSelectSize.topAnchor.constraint(equalTo: buttonCollor.bottomAnchor, constant: 32),
-            buttonSelectSize.centerXAnchor.constraint(equalTo: view.centerXAnchor),
+            buttonSelectSize.topAnchor.constraint(equalTo: buttonCollor.bottomAnchor, constant: 16),
+            buttonSelectSize.centerXAnchor.constraint(equalTo: scrollView.centerXAnchor),
             
-            button1Size.topAnchor.constraint(equalTo: buttonSelectSize.bottomAnchor, constant: 28),
-            button1Size.centerXAnchor.constraint(equalTo: view.centerXAnchor),
+            sizeButtonVStack.topAnchor.constraint(equalTo: buttonSelectSize.bottomAnchor, constant: 16),
+            sizeButtonVStack.centerXAnchor.constraint(equalTo: scrollView.centerXAnchor),
             
-            button2Size.centerXAnchor.constraint(equalTo: view.centerXAnchor),
-            button2Size.topAnchor.constraint(equalTo: button1Size.bottomAnchor, constant: 10),
+            productDetails.topAnchor.constraint(equalTo: sizeButtonVStack.bottomAnchor, constant: 16),
+            productDetails.leftAnchor.constraint(equalTo: containerView.leftAnchor, constant: 16),
             
-            productDetails.topAnchor.constraint(equalTo: button2Size.bottomAnchor, constant: 37),
-            productDetails.leftAnchor.constraint(equalTo: view.leftAnchor, constant: 10),
+            buttonBuyNow.topAnchor.constraint(equalTo: productDetails.bottomAnchor, constant: 16),
+            buttonBuyNow.centerXAnchor.constraint(equalTo: scrollView.centerXAnchor),
+            buttonBuyNow.heightAnchor.constraint(equalToConstant: 50),
+            buttonBuyNow.widthAnchor.constraint(equalToConstant: 180)
             
-            buttonBuyNow.topAnchor.constraint(equalTo: productDetails.bottomAnchor, constant: 17),
-            buttonBuyNow.leftAnchor.constraint(equalTo: view.leftAnchor, constant: 67),
-            buttonBuyNow.rightAnchor.constraint(equalTo: view.rightAnchor, constant: -67),
-            buttonBuyNow.heightAnchor.constraint(equalToConstant: 45),
         ])
     }
     
     func setupAdditionalConfiguration() {
         view.backgroundColor = .black
     }
+    
+    func scrollViewDidScroll(_ scrollView: UIScrollView) {
+        scrollView.bounces = (scrollView.contentOffset.y > 100)
+    }
+    
+    
 }
