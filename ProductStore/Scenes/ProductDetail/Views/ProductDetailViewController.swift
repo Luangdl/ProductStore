@@ -23,6 +23,7 @@ class ProductDetailViewController: UIViewController, UIScrollViewDelegate {
     
     var viewModel: ProductDetailViewModelProtocol = ProductDetailViewModel()
     
+    
     //MARK: UI
     
     lazy var scrollView: UIScrollView = {
@@ -37,12 +38,6 @@ class ProductDetailViewController: UIViewController, UIScrollViewDelegate {
         return scrollView
     }()
     
-    lazy var containerView: UIView = {
-        let view = UIView()
-        view.translatesAutoresizingMaskIntoConstraints = false
-        return view
-    }()
-    
     lazy var imageView: UIImageView = {
         let imageView = UIImageView()
         imageView.image = UIImage(named: "camiseta")
@@ -53,14 +48,14 @@ class ProductDetailViewController: UIViewController, UIScrollViewDelegate {
         return imageView
     }()
     
-    lazy var buttonBag: UIImageView = {
-        let image = UIImageView(image: image)
+    @objc lazy var buttonBag: UIButton = {
+        let image = UIButton()
         image.isUserInteractionEnabled = true
         image.addGestureRecognizer((UITapGestureRecognizer(target: self, action: #selector(didTapView))))
         image.translatesAutoresizingMaskIntoConstraints = false
         return image
     }()
-    
+
     lazy var installmentValue: UILabel = {
        let label = UILabel()
         label.font = label.font.withSize(11)
@@ -153,13 +148,12 @@ class ProductDetailViewController: UIViewController, UIScrollViewDelegate {
     
     lazy var buttonBuyNow: UIButton = {
         let button = UIButton(frame: .zero)
-        button.isUserInteractionEnabled = true
-        button.addGestureRecognizer(((UITapGestureRecognizer(target: self, action: #selector(didTapView)))))
+//        button.addGestureRecognizer(((UITapGestureRecognizer(target: self, action: #selector(buyNow)))))
         button.backgroundColor = .systemGreen
         button.layer.cornerRadius = 25
         button.setTitle("Comprar agora", for: .normal)
         button.translatesAutoresizingMaskIntoConstraints = false
-        
+          
         return button
     }()
     
@@ -169,7 +163,7 @@ class ProductDetailViewController: UIViewController, UIScrollViewDelegate {
         self.productId = productId
         super.init(nibName: nil, bundle: nil)
     }
-    
+      
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
@@ -178,6 +172,18 @@ class ProductDetailViewController: UIViewController, UIScrollViewDelegate {
         super.viewDidLoad()
         setupView()
         setupViewModel()
+        
+        buttonBuyNow.isUserInteractionEnabled = true
+        buttonBuyNow.addTarget(self, action: #selector(didTapView), for: .touchUpInside)
+        
+        let bag = UIBarButtonItem(image: UIImage(systemName: "bag"), style: .plain, target: self, action:  #selector(getter: buttonBag))
+        self.navigationItem.rightBarButtonItem = bag
+        
+        
+//        navigationItem.leftBarButtonItem = UIBarButtonItem(barButtonSystemItem: .organize, target: self, action: #selector(getter: buttonBag))
+//        navigationItem.rightBarButtonItem = UIBarButtonItem(title: "Bag", style: .plain, target: self, action: #selector(getter: buttonBag))
+        
+        
     }
     
     override func viewDidAppear(_ animated: Bool) {
@@ -211,9 +217,18 @@ class ProductDetailViewController: UIViewController, UIScrollViewDelegate {
     @objc func didTapView() {
         print("did tap view")
     }
+    
 
     
+//    @objc func buyNow() {
+//
+//        self.navigationController?.pushViewController(ListingProductViewController(), animated: true)
+//}
+
+
 }
+
+
 
 //MARK
 
@@ -223,77 +238,56 @@ extension ProductDetailViewController: ViewCode{
 
 
         view.addSubview(scrollView)
-        scrollView.addSubview(containerView)
-        containerView.addSubview(imageView)
-        containerView.addSubview(productName)
-        containerView.addSubview(productValue)
-        containerView.addSubview(colorName)
-//        containerView.addSubview(installmentValue)
-        containerView.addSubview(buttonCollor)
-        containerView.addSubview(buttonSelectSize)
-        containerView.addSubview(sizeButtonVStack)
-        containerView.addSubview(productDetails)
-        containerView.addSubview(buttonBuyNow)
+   
+//        scrollView.addSubview(buttonBag)
+        scrollView.addSubview(imageView)
+        scrollView.addSubview(productName)
+        scrollView.addSubview(productValue)
+        scrollView.addSubview(colorName)
+        //        containerView.addSubview(installmentValue)
+        scrollView.addSubview(buttonCollor)
+        scrollView.addSubview(buttonSelectSize)
+        scrollView.addSubview(sizeButtonVStack)
+        scrollView.addSubview(productDetails)
+        scrollView.addSubview(buttonBuyNow)
         
+
     }
     
     func setupConstraints() {
         
+//        buttonBag.anchor(top: navigationController?.navigationBar.topAnchor, left: navigationController?.navigationBar.leftAnchor, bottom: scrollView.bottomAnchor, leftConstant: 200)
+        
         scrollView.anchor(top: view.safeAreaLayoutGuide.topAnchor, left: view.leftAnchor, bottom: view.bottomAnchor, right: view.rightAnchor, bottomConstant: -49)
         
-        containerView.anchor(top: scrollView.topAnchor, left: view.leftAnchor, bottom: scrollView.bottomAnchor, right: view.rightAnchor)
-        
-        imageView.anchor(top: containerView.topAnchor, left: containerView.leftAnchor, right: containerView.rightAnchor, heightConstant: 300)
+//        containerView.anchor(top: scrollView.topAnchor, left: view.leftAnchor, bottom: scrollView.bottomAnchor, right: view.rightAnchor)
+//
+        imageView.anchor(top: scrollView.topAnchor, left: scrollView.leftAnchor, right: view.rightAnchor, heightConstant: 300)
     
-        productName.anchor(top: imageView.bottomAnchor, left: containerView.leftAnchor, topConstant: 33, leftConstant: 16)
+        productName.anchor(top: imageView.bottomAnchor, left: scrollView.leftAnchor, topConstant: 33, leftConstant: 16)
         
-        productValue.anchor(top: imageView.bottomAnchor, right: containerView.rightAnchor, topConstant: 33, rightConstant: 16)
+        productValue.anchor(top: imageView.bottomAnchor, right: scrollView.rightAnchor, topConstant: 33, rightConstant: -400)
         
-        NSLayoutConstraint.activate([
-           
-       //     scrollView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
-       //     scrollView.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: -49),
-        //    scrollView.leftAnchor.constraint(equalTo: view.leftAnchor),
-        //    scrollView.rightAnchor.constraint(equalTo: view.rightAnchor),
-            
-      //      containerView.topAnchor.constraint(equalTo: scrollView.topAnchor),
-     //       containerView.leftAnchor.constraint(equalTo: scrollView.leftAnchor),
-     //       containerView.rightAnchor.constraint(equalTo: scrollView.rightAnchor),
-     //       containerView.bottomAnchor.constraint(equalTo: scrollView.bottomAnchor),
-    //        containerView.widthAnchor.constraint(equalTo: scrollView.widthAnchor),
-          
-   //         imageView.topAnchor.constraint(equalTo: containerView.topAnchor),
-   //         imageView.leftAnchor.constraint(equalTo: containerView.leftAnchor),
-    //        imageView.rightAnchor.constraint(equalTo: containerView.rightAnchor),
-    //        imageView.heightAnchor.constraint(equalToConstant: 300),
-            
-   //         productName.topAnchor.constraint(equalTo: imageView.bottomAnchor, constant: 33),
-  //          productName.leftAnchor.constraint(equalTo: containerView.leftAnchor, constant: 16),
-            
- //           productValue.topAnchor.constraint(equalTo: imageView.bottomAnchor, constant: 33),
-  //          productValue.rightAnchor.constraint(equalTo: containerView.rightAnchor, constant: -16),
-            
-            colorName.topAnchor.constraint(equalTo: productName.bottomAnchor, constant: 16),
-            colorName.centerXAnchor.constraint(equalTo: scrollView.centerXAnchor),
-            
-            buttonCollor.topAnchor.constraint(equalTo: colorName.bottomAnchor, constant: 16),
-            buttonCollor.centerXAnchor.constraint(equalTo: scrollView.centerXAnchor),
-            
-            buttonSelectSize.topAnchor.constraint(equalTo: buttonCollor.bottomAnchor, constant: 16),
-            buttonSelectSize.centerXAnchor.constraint(equalTo: scrollView.centerXAnchor),
-            
-            sizeButtonVStack.topAnchor.constraint(equalTo: buttonSelectSize.bottomAnchor, constant: 16),
-            sizeButtonVStack.centerXAnchor.constraint(equalTo: scrollView.centerXAnchor),
-            
-            productDetails.topAnchor.constraint(equalTo: sizeButtonVStack.bottomAnchor, constant: 16),
-            productDetails.leftAnchor.constraint(equalTo: containerView.leftAnchor, constant: 16),
-            
-            buttonBuyNow.topAnchor.constraint(equalTo: productDetails.bottomAnchor, constant: 16),
-            buttonBuyNow.centerXAnchor.constraint(equalTo: scrollView.centerXAnchor),
-            buttonBuyNow.heightAnchor.constraint(equalToConstant: 50),
-            buttonBuyNow.widthAnchor.constraint(equalToConstant: 180)
-            
-        ])
+        colorName.anchorCenterXToSuperview()
+        colorName.anchor(top: productName.bottomAnchor, bottomConstant: 16)
+        
+        buttonCollor.anchor(top: colorName.bottomAnchor, topConstant: 16)
+        buttonCollor.anchorCenterXToSuperview()
+        
+        buttonSelectSize.anchor(top: buttonCollor.bottomAnchor, topConstant: 16)
+        buttonSelectSize.anchorCenterXToSuperview()
+        
+        sizeButtonVStack.anchor(top: buttonSelectSize.bottomAnchor, topConstant: 16)
+        sizeButtonVStack.anchorCenterXToSuperview()
+        
+        productDetails.anchor(top: sizeButtonVStack.bottomAnchor, topConstant: 16)
+        productDetails.anchor(left: scrollView.leftAnchor, leftConstant: 16)
+        
+        buttonBuyNow.anchor(top: productDetails.bottomAnchor, topConstant: 16)
+        buttonBuyNow.anchorCenterXToSuperview()
+        buttonBuyNow.anchor(heightConstant: 50)
+        buttonBuyNow.anchor(widthConstant: 180)
+        
     }
     
     func setupAdditionalConfiguration() {
