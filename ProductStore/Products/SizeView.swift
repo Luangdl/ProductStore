@@ -31,7 +31,6 @@ class SizeView: UIView {
     init(size:String) {
         self.size = size
         super.init(frame: .zero)
-        
         self.setupView()
     }
     

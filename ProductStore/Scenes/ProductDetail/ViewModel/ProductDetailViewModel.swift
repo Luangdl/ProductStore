@@ -5,7 +5,7 @@
 //  Created by Yan Dias on 15/02/22.
 //
 
-import Foundation
+//import Foundation
 import UIKit
 
 protocol ProductDetailViewModelProtocol {
@@ -22,8 +22,7 @@ protocol ProductDetailViewModelProtocol {
 }
 
 class ProductDetailViewModel: ProductDetailViewModelProtocol {
-
-
+    
     //MARK: - Dependencies
     
     var productDetailService: ProductDetailServiceProtocol? = ProductDetailService()
@@ -32,7 +31,6 @@ class ProductDetailViewModel: ProductDetailViewModelProtocol {
     
     var selectedColor: UIColor?
     var selectedSize1: String?
-
 
     //MARK: - ProductDetailViewModelProtocol conforms
     
@@ -54,15 +52,12 @@ class ProductDetailViewModel: ProductDetailViewModelProtocol {
 
     func changeColorTo(_ color: UIColor) {
         selectedColor = color
-        
     }
 
     func changeSize1To(_ size: String) {
         selectedSize1 = size
-      
     }
     
-
     func buyProduct() {
 
     }

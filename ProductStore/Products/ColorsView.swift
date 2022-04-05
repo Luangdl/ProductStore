@@ -37,7 +37,6 @@ class ColorsView: UIView {
     //MARK: Properties
     
     var onColorSelect: ((UIColor) -> Void)?
-    
     let colors: [UIColor]
     
     //MARK: Init
@@ -62,12 +61,9 @@ class ColorsView: UIView {
         stackViewColor1.addArrangedSubview(ColorsView[1])
         stackViewColor1.addArrangedSubview(ColorsView[2])
         stackViewColor1.addArrangedSubview(ColorsView[3])
-        
         addSubview(stackViewColor1)
-        
         stackViewColor1.translatesAutoresizingMaskIntoConstraints = false
         stackViewColor1.spacing = 20
-        
         stackViewColor1.distribution = .fillEqually
         stackViewColor1.leftAnchor.constraint(equalTo: leftAnchor).isActive = true
         stackViewColor1.rightAnchor.constraint(equalTo: rightAnchor).isActive = true

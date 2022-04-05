@@ -32,10 +32,8 @@ class ColorView: UIView {
     private func setupColorView() {
         self.translatesAutoresizingMaskIntoConstraints = false
         self.backgroundColor = color
-        
         heightAnchor.constraint(equalToConstant: 40).isActive = true
         widthAnchor.constraint(equalToConstant: 40).isActive = true
-        
         layer.cornerRadius = 40/2
         layer.borderWidth = 1
         layer.borderColor = UIColor.white.cgColor

@@ -20,5 +20,4 @@ extension ViewCode{
         setupConstraints()
         setupAdditionalConfiguration()
     }
-    
 }

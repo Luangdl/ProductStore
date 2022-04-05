@@ -7,7 +7,6 @@
 
 import Foundation
 
-
 struct ProductEntity {
     let name: String
     let price: Double
@@ -34,3 +33,4 @@ struct Product {
         self.images = entity.detail
     }
 }
+

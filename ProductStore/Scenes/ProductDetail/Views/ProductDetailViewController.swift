@@ -23,7 +23,6 @@ class ProductDetailViewController: UIViewController, UIScrollViewDelegate {
     
     var viewModel: ProductDetailViewModelProtocol = ProductDetailViewModel()
     
-    
     //MARK: UI
     
     lazy var scrollView: UIScrollView = {
@@ -106,7 +105,6 @@ class ProductDetailViewController: UIViewController, UIScrollViewDelegate {
         return label
     }()
     
-    
     lazy var button1Size: SizesView = {
         let button1 = SizesView(sizes: sizes1)
         button1.onSizeSelect = { size in
@@ -148,7 +146,6 @@ class ProductDetailViewController: UIViewController, UIScrollViewDelegate {
     
     lazy var buttonBuyNow: UIButton = {
         let button = UIButton(frame: .zero)
-//        button.addGestureRecognizer(((UITapGestureRecognizer(target: self, action: #selector(buyNow)))))
         button.backgroundColor = .systemGreen
         button.layer.cornerRadius = 25
         button.setTitle("Comprar agora", for: .normal)
@@ -172,18 +169,11 @@ class ProductDetailViewController: UIViewController, UIScrollViewDelegate {
         super.viewDidLoad()
         setupView()
         setupViewModel()
-        
         buttonBuyNow.isUserInteractionEnabled = true
         buttonBuyNow.addTarget(self, action: #selector(didTapView), for: .touchUpInside)
         
         let bag = UIBarButtonItem(image: UIImage(systemName: "bag"), style: .plain, target: self, action:  #selector(getter: buttonBag))
         self.navigationItem.rightBarButtonItem = bag
-        
-        
-//        navigationItem.leftBarButtonItem = UIBarButtonItem(barButtonSystemItem: .organize, target: self, action: #selector(getter: buttonBag))
-//        navigationItem.rightBarButtonItem = UIBarButtonItem(title: "Bag", style: .plain, target: self, action: #selector(getter: buttonBag))
-        
-        
     }
     
     override func viewDidAppear(_ animated: Bool) {
@@ -217,51 +207,30 @@ class ProductDetailViewController: UIViewController, UIScrollViewDelegate {
     @objc func didTapView() {
         print("did tap view")
     }
-    
-
-    
-//    @objc func buyNow() {
-//
-//        self.navigationController?.pushViewController(ListingProductViewController(), animated: true)
-//}
-
-
 }
-
-
 
 //MARK
 
 extension ProductDetailViewController: ViewCode{
     
     func buildViewHierarchy() {
-
-
         view.addSubview(scrollView)
-   
-//        scrollView.addSubview(buttonBag)
         scrollView.addSubview(imageView)
         scrollView.addSubview(productName)
         scrollView.addSubview(productValue)
         scrollView.addSubview(colorName)
-        //        containerView.addSubview(installmentValue)
         scrollView.addSubview(buttonCollor)
         scrollView.addSubview(buttonSelectSize)
         scrollView.addSubview(sizeButtonVStack)
         scrollView.addSubview(productDetails)
         scrollView.addSubview(buttonBuyNow)
-        
 
     }
     
     func setupConstraints() {
         
-//        buttonBag.anchor(top: navigationController?.navigationBar.topAnchor, left: navigationController?.navigationBar.leftAnchor, bottom: scrollView.bottomAnchor, leftConstant: 200)
-        
         scrollView.anchor(top: view.safeAreaLayoutGuide.topAnchor, left: view.leftAnchor, bottom: view.bottomAnchor, right: view.rightAnchor, bottomConstant: -49)
-        
-//        containerView.anchor(top: scrollView.topAnchor, left: view.leftAnchor, bottom: scrollView.bottomAnchor, right: view.rightAnchor)
-//
+
         imageView.anchor(top: scrollView.topAnchor, left: scrollView.leftAnchor, right: view.rightAnchor, heightConstant: 300)
     
         productName.anchor(top: imageView.bottomAnchor, left: scrollView.leftAnchor, topConstant: 33, leftConstant: 16)
@@ -297,6 +266,4 @@ extension ProductDetailViewController: ViewCode{
     func scrollViewDidScroll(_ scrollView: UIScrollView) {
         scrollView.bounces = (scrollView.contentOffset.y > 100)
     }
-    
-    
 }

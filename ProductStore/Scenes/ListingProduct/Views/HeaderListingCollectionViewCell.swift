@@ -15,7 +15,7 @@ class HeaderListingCollectionViewCell: UICollectionViewCell {
         let image = UIImageView()
         image.image = UIImage(named: "camisetaDev")
         image.clipsToBounds = true
-        image.layer.cornerRadius = 20
+        image.layer.cornerRadius = 37.5
         image.contentMode = .scaleAspectFill
         image.translatesAutoresizingMaskIntoConstraints = false
         
@@ -26,7 +26,7 @@ class HeaderListingCollectionViewCell: UICollectionViewCell {
         let image = UIImageView()
         image.image = UIImage(named: "caneca")
         image.clipsToBounds = true
-        image.layer.cornerRadius = 20
+        image.layer.cornerRadius = 37.5
         image.contentMode = .scaleAspectFill
         image.translatesAutoresizingMaskIntoConstraints = false
         
@@ -37,7 +37,7 @@ class HeaderListingCollectionViewCell: UICollectionViewCell {
         let image = UIImageView()
         image.image = UIImage(named: "stickers")
         image.clipsToBounds = true
-        image.layer.cornerRadius = 20
+        image.layer.cornerRadius = 37.5
         image.contentMode = .scaleAspectFill
         image.translatesAutoresizingMaskIntoConstraints = false
         
@@ -83,47 +83,67 @@ class HeaderListingCollectionViewCell: UICollectionViewCell {
         contentView.backgroundColor = .systemGray6
         contentView.layer.cornerRadius = 2
         contentView.clipsToBounds = true
-        
         contentView.addSubview(imageTshirts)
         contentView.addSubview(imageMug)
         contentView.addSubview(imageStickers)
         contentView.addSubview(nameTshirts)
         contentView.addSubview(nameMug)
         contentView.addSubview(nameStickers)
-        
-        setupConstraint()
-        
-        
+        setupConstraints()
     }
 
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
     
-    func setupConstraint() {
+    func setupConstraints() {
         
-        imageTshirts.anchor(top: topAnchor, left: leftAnchor, bottom: bottomAnchor, topConstant: 10, leftConstant: 25, bottomConstant: 20)
-        imageTshirts.anchor(heightConstant: 50)
-        imageTshirts.anchor(widthConstant: 50)
+        NSLayoutConstraint.activate([
         
-        nameTshirts.anchor(top: imageTshirts.bottomAnchor, left: leftAnchor, topConstant: 2, leftConstant: 25)
+            imageTshirts.topAnchor.constraint(equalTo: topAnchor, constant: 10),
+            imageTshirts.leftAnchor.constraint(equalTo: leftAnchor, constant: 25),
+            imageTshirts.heightAnchor.constraint(equalToConstant: 75),
+            imageTshirts.widthAnchor.constraint(equalToConstant: 75),
+            
+            nameTshirts.centerXAnchor.constraint(equalTo: imageTshirts.centerXAnchor),
+            nameTshirts.topAnchor.constraint(equalTo: imageMug.bottomAnchor, constant: 7),
+            
+            imageMug.topAnchor.constraint(equalTo: topAnchor, constant: 10),
+            imageMug.centerXAnchor.constraint(equalTo: centerXAnchor),
+            imageMug.heightAnchor.constraint(equalToConstant: 75),
+            imageMug.widthAnchor.constraint(equalToConstant: 75),
         
-        imageMug.anchor(top: topAnchor, left: imageTshirts.leftAnchor, bottom: bottomAnchor, topConstant: 10, leftConstant: 140, bottomConstant: 20)
-        imageMug.anchor(heightConstant: 50)
-        imageMug.anchor(widthConstant: 50)
+            nameMug.centerXAnchor.constraint(equalTo: imageMug.centerXAnchor),
+            nameMug.topAnchor.constraint(equalTo: imageMug.bottomAnchor, constant: 7),
         
-        nameMug.anchor(top: imageMug.bottomAnchor, left: imageTshirts.leftAnchor, topConstant: 2, leftConstant: 140)
+            imageStickers.topAnchor.constraint(equalTo: topAnchor, constant: 10),
+            imageStickers.rightAnchor.constraint(equalTo: rightAnchor, constant: -25),
+            imageStickers.heightAnchor.constraint(equalToConstant: 75),
+            imageStickers.widthAnchor.constraint(equalToConstant: 75),
+            
+            nameStickers.centerXAnchor.constraint(equalTo: imageStickers.centerXAnchor),
+            nameStickers.topAnchor.constraint(equalTo: imageStickers.bottomAnchor, constant: 7),
+        ])
         
-        imageStickers.anchor(top: topAnchor, left: nameMug.leftAnchor, bottom: bottomAnchor, topConstant: 10, leftConstant: 140, bottomConstant: 20)
-        imageStickers.anchor(heightConstant: 50)
-        imageStickers.anchor(widthConstant: 50)
         
-        nameStickers.anchor(top: imageStickers.bottomAnchor, left: nameMug.leftAnchor, topConstant: 2, leftConstant: 140)
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
         
         
     }
-    
-    
     
     
 }

@@ -35,6 +35,7 @@ class ListingCollectionViewCell: UICollectionViewCell {
     
         lazy var priceLabel: UILabel = {
             let label = UILabel(frame: .zero)
+            label.font = UIFont.boldSystemFont(ofSize: 16)
             label.text = "R$ 60,00"
             label.textAlignment = .center
             label.textColor = .white
@@ -58,53 +59,40 @@ class ListingCollectionViewCell: UICollectionViewCell {
             button.backgroundColor = .systemGreen
             button.setTitle("Adicionar", for: .normal)
             button.layer.cornerRadius = 19
-//            button.isUserInteractionEnabled = true
             button.translatesAutoresizingMaskIntoConstraints = false
             
             return button
         }()
         
-        
-
     override init(frame: CGRect) {
             super.init(frame: frame)
         
         contentView.backgroundColor = .systemGray6
         contentView.layer.cornerRadius = 16
         contentView.clipsToBounds = true
-        
         contentView.addSubview(imageView)
         contentView.addSubview(nameLabel)
         contentView.addSubview(priceLabel)
         contentView.addSubview(installmentLabel)
         contentView.addSubview(buttonAdd)
-        
         contentView.clipsToBounds = true
         setupConstraint()
-        
         }
     
         required init?(coder aDecoder: NSCoder) {
             fatalError("init(coder:) has not been implemented")
         }
 
-//    override func layoutSubviews() {
-//        super.layoutSubviews()
-////        imageView.frame = CGRect(x: 15, y: 15, width: contentView.frame.size.width-35, height: 200)
-////        nameLabel.frame = CGRect(x: 6, y: contentView.frame.size.height-50, width: contentView.frame.size.width-10, height: 50)
-////        priceLabel.frame = CGRect(x: 6, y: contentView.frame.size.height-50, width: contentView.frame.size.width-10, height: 50)
-////        installmentLabel.frame = CGRect(x: 6, y: contentView.frame.size.height-50, width: contentView.frame.size.width-10, height: 50)
-////        buttonAdd.frame = CGRect(x: 6, y: contentView.frame.size.height-50, width: contentView.frame.size.width-7, height: 40)
-//
-//  
-//
-//    }
+    func set(_ listing: ListItem) {
+        nameLabel.text = listing.name
+        priceLabel.text = listing.price
+        installmentLabel.text = listing.installment
+    }
 
     func setupConstraint() {
         
-        
-        imageView.anchor(top: topAnchor, left: leftAnchor, bottom: bottomAnchor, right: rightAnchor, bottomConstant: 129)
-        
+        imageView.anchor(top: topAnchor, left: leftAnchor, right: rightAnchor, heightConstant: 180)
+    
         nameLabel.anchor(top: imageView.bottomAnchor, topConstant: 8.54)
         nameLabel.anchorCenterXToSuperview()
         
@@ -118,13 +106,7 @@ class ListingCollectionViewCell: UICollectionViewCell {
         buttonAdd.anchorCenterXToSuperview()
         buttonAdd.anchor(heightConstant: 35)
         buttonAdd.anchor(widthConstant: 120)
-        
-        
     }
-    
-   
-    
-    
 }
 
 
